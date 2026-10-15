@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bayou Roulette — Hunt: Showdown 1896 Loadout Randomizer</title>
   
+  <link rel="icon" type="image/png" href="favicon.png" />
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
@@ -32,23 +33,6 @@
         <span id="cost-display" class="hidden rounded-md border border-amber-500/40 bg-amber-500/10 px-3.5 py-1.5 text-xs text-amber-400 font-medium shadow-sm shadow-amber-500/5">
           Total Cost: <span id="total-cost" class="font-bold text-amber-300">$0</span>
         </span>
-      </div>
-
-      <!-- Budget Slider -->
-      <div class="mt-6 mx-auto max-w-xs text-center space-y-2">
-        <div class="flex justify-between items-center text-xs text-zinc-400 font-medium">
-          <span>Max Budget:</span>
-          <span id="budget-value" class="font-bold text-amber-400">$2000</span>
-        </div>
-        <input 
-          type="range" 
-          id="budget-slider" 
-          min="200" 
-          max="4000" 
-          step="50" 
-          value="2000"
-          class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
-        />
       </div>
     </header>
 
@@ -181,38 +165,18 @@
         </div>
       </div>
 
-      <!-- Settings Toggles -->
-      <div class="mt-8 mb-3 flex flex-wrap items-center justify-center gap-2">
-        <button id="qm-btn" type="button" class="rounded-md border border-zinc-700 bg-zinc-900/90 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-300 transition-all hover:border-zinc-500 active:scale-95 shadow-md">
-          Quartermaster: OFF (5 Slots)
-        </button>
-
-        <button id="weapons-btn" type="button" class="rounded-md border border-zinc-700 bg-zinc-900/90 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-300 transition-all hover:border-zinc-500 active:scale-95 shadow-md">
-          Only Weapons: OFF
-        </button>
-
-        <button id="scarce-btn" type="button" class="rounded-md border border-zinc-700 bg-zinc-900/90 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-300 transition-all hover:border-zinc-500 active:scale-95 shadow-md">
-          Scarce Weapons: ON
-        </button>
-      </div>
-
-      <!-- Roll Action Button -->
-      <div class="flex flex-wrap items-center justify-center gap-4">
+      <!-- Action Buttons (Roll & Options) -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-6">
         <button id="roll-btn" type="button" class="rounded-lg bg-amber-500 px-6 py-3 text-sm font-bold uppercase tracking-wider text-zinc-950 transition-all hover:bg-amber-400 active:scale-95 shadow-lg shadow-amber-500/10">
           Roll Loadout
         </button>
+
+        <button id="options-toggle-btn" type="button" class="rounded-lg border border-zinc-700 bg-zinc-900/90 px-4 py-3 text-xs font-bold uppercase tracking-wider text-zinc-300 transition-all hover:border-zinc-500 active:scale-95 shadow-md">
+          Options ⚙️
+        </button>
       </div>
-    </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="mt-16 border-t border-zinc-800/80 pt-6 text-center text-xs text-zinc-500">
-    <p>&copy; <span id="year"></span> edwinhuberts. All rights reserved.</p>
-    <p class="mt-1 text-[11px] text-zinc-600">
-      Bayou Roulette is a fan-made tool for Hunt: Showdown 1896.
-    </p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <!-- Hidden Options Panel (Budget Slider & Toggles) -->
+      <div id="options-panel" class="hidden rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-5 mt-4 space-y-5 transition-all">
+        <!-- Budget Slider -->
+        <div class="mx-auto max-w-xs text-center space-y-2">
