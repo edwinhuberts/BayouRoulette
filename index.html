@@ -41,7 +41,7 @@
       <!-- Weapons Section -->
       <div id="weapons-section" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Primary Weapon Card -->
-        <div class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between">
+        <div id="primary-card" class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between min-h-[120px]">
           <div>
             <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500">
               <span>Primary Weapon</span>
@@ -62,7 +62,7 @@
         </div>
 
         <!-- Secondary Weapon Card -->
-        <div class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between">
+        <div id="secondary-card" class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between min-h-[120px]">
           <div>
             <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500">
               <span>Secondary Weapon</span>
@@ -90,77 +90,100 @@
         </div>
         
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
-          <!-- Gear Items 0 to 7 -->
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 0 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-amber-500/70">Melee</div>
-              <div id="gear-0" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-0-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-0" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-0-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-0-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-0-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 1 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-amber-500/70">Medical</div>
-              <div id="gear-1" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-1-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-1" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-1-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-1-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-1-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 2 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-zinc-500">Tool 3</div>
-              <div id="gear-2" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-2-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-2" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-2-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-2-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-2-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 3 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-zinc-500">Tool 4</div>
-              <div id="gear-3" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-3-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-3" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-3-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-3-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-3-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 4 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-amber-500/70">Item 1</div>
-              <div id="gear-4" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-4-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-4" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-4-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-4-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-4-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 5 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-amber-500/70">Item 2</div>
-              <div id="gear-5" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-5-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-5" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-5-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-5-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-5-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 6 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-amber-500/70">Item 3</div>
-              <div id="gear-6" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-6-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-6" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-6-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-6-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-6-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
 
-          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-3 text-center flex flex-col justify-between">
-            <div>
+          <!-- Gear Item 7 -->
+          <div class="rounded-lg border border-zinc-800/60 bg-zinc-900/30 p-2.5 text-center flex flex-col justify-between min-h-[110px]">
+            <div class="flex-1 flex flex-col justify-start">
               <div class="text-[9px] font-bold uppercase text-amber-500/70">Item 4</div>
-              <div id="gear-7" class="mt-2 text-xs font-semibold text-zinc-200">-</div>
-              <div id="gear-7-type" class="mt-1 text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-7" class="mt-1 text-[11px] leading-tight font-semibold text-zinc-200 break-words">-</div>
             </div>
-            <div id="gear-7-price" class="mt-2 text-[10px] font-bold text-amber-400/80">$0</div>
+            <div class="mt-1">
+              <div id="gear-7-type" class="text-[9px] text-zinc-500 uppercase">-</div>
+              <div id="gear-7-price" class="mt-0.5 text-[10px] font-bold text-amber-400/80">$0</div>
+            </div>
           </div>
         </div>
       </div>
