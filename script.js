@@ -205,9 +205,46 @@ function canBeDualWielded(weapon) {
   return !nonDualWieldable.includes(weapon.name);
 }
 
+// Identifierar alla vapen med dubbla/omkopplingsbara ammotyper
+function isSingleShotWeapon(weapon) {
+  if (!weapon || !weapon.name) return false;
+  const name = weapon.name;
+  return (
+    name.includes("1890 Cavalry") ||
+    name.includes("Martini-Henry") ||
+    name.includes("Maynard") ||
+    name.includes("Bomb Lance") ||
+    name.includes("Bomb Launcher") ||
+    (name.includes("Crossbow") && !name.includes("Hand Crossbow")) ||
+    name.includes("Hand Crossbow") ||
+    name.includes("Hunting Bow") ||
+    name.includes("Romero") ||
+    name.includes("Sparks") ||
+    name.includes("Springfield") ||
+    name.includes("LeMat") ||
+    name.includes("Haymaker")
+  );
+}
+
 function getCustomAmmoForWeapon(weapon) {
   if (!weapon || !weapon.name) return [];
   const name = weapon.name;
+
+  // Single-Shot & Dual-Slot Weapons
+  if (name.includes("1890 Cavalry")) return ["FMJ Ammo", "High Velocity Ammo"];
+  if (name.includes("Martini-Henry")) return ["Explosive Ammo", "FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo"];
+  if (name.includes("Maynard")) return ["Dumdum Ammo", "High Velocity Ammo", "Subsonic Ammo"];
+  if (name.includes("Bomb Lance") || name.includes("Bomb Launcher")) return ["Dragon Breath", "Harpoon", "Steel Ball", "Waxed Frag"];
+  if (name.includes("Crossbow") && !name.includes("Hand Crossbow")) return ["Explosive Bolt", "Shot Bolt", "Steelbolt"];
+  if (name.includes("Hand Crossbow")) return ["Chaos Bolt", "Choke Bolt", "Dragon Bolt", "Poison Bolt"];
+  if (name.includes("Hunting Bow")) return ["Concertina Arrow", "Frag Arrow", "Poison Arrow"];
+  if (name.includes("Romero")) return ["Dragon Breath", "Penny Shot", "Slug", "Starshell"];
+  if (name.includes("Sparks")) return ["FMJ Ammo", "Incendiary Ammo", "Poison Ammo", "Subsonic Ammo"];
+  if (name.includes("Springfield")) return ["Dumdum Ammo", "High Velocity Ammo", "Poison Ammo"];
+  if (name.includes("LeMat")) return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Slug", "Penny Shot"];
+  if (name.includes("Haymaker")) return ["Slug", "Penny Shot", "Flechette Ammo"];
+
+  // Övriga vanliga vapen
   if (name.includes("Conversion")) return ["FMJ Ammo", "Dumdum Ammo"];
   if (name.includes("Nagant M1895")) return ["Poison Ammo", "High Velocity Ammo"];
   if (name.includes("Officer")) return ["High Velocity Ammo", "Poison Ammo", "Subsonic Ammo"];
@@ -215,37 +252,28 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Bornheim")) return ["High Velocity Ammo", "Incendiary Ammo", "Subsonic Ammo"];
   if (name.includes("Marathon")) return ["FMJ Ammo", "Poison Ammo"];
   if (name.includes("Infantry 73L") || name.includes("Frontier 73C") || name.includes("Ranger 73") || name.includes("Vandal 73C")) {
-    return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Poison Ammo", "Subsonic Ammo"];
+    return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Poison Ammo"];
   }
-  if (name.includes("LeMat")) return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo"];
-  if (name.includes("Centennial")) return ["FMJ Ammo", "Poison Ammo", "High Velocity Ammo", "Subsonic Ammo"];
+  if (name.includes("Centennial")) return ["FMJ Ammo", "Poison Ammo", "High Velocity Ammo"];
   if (name.includes("Scottfield")) return ["FMJ Ammo", "Incendiary Ammo", "High Velocity Ammo", "Dumdum Ammo"];
   if (name.includes("Pax")) return ["FMJ Ammo", "Incendiary Ammo", "Dumdum Ammo", "Poison Ammo"];
   if (name.includes("Vetterli")) return ["FMJ Ammo", "Incendiary Ammo", "High Velocity Ammo"];
-  if (name.includes("Springfield 1866")) return ["Bleed (Dumdum) Ammo", "Explosive Ammo"];
-  if (name.includes("Drilling")) return ["Dumdum Ammo", "FMJ Ammo"];
-  if (name.includes("1865 Carbine")) return ["FMJ Ammo", "High Velocity Ammo", "Subsonic Ammo"];
-  if (name.includes("Maynard")) return ["High Velocity Ammo", "Subsonic Ammo", "Dumdum Ammo"];
+  if (name.includes("Drilling")) return ["Dumdum Ammo", "FMJ Ammo", "Slug"];
+  if (name.includes("1865 Carbine")) return ["FMJ Ammo", "High Velocity Ammo"];
   if (name.includes("Flame Rifle")) return ["🔥!!FIRE!!🔥"];
   if (name.includes("Mosin-Nagant") || name.includes("Mosin Obrez")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Lebel")) return ["Spitzer Ammo", "Incendiary Ammo"];
-  if (name.includes("Krag")) return ["Incendiary Ammo", "FMJ Ammo", "Subsonic Ammo"];
-  if (name.includes("Sparks")) return ["FMJ Ammo", "Incendiary Ammo", "Poison Ammo", "Subsonic Ammo"];
-  if (name.includes("Martini-Henry")) return ["Explosive Ammo", "Incendiary Ammo", "Dumdum Ammo"];
+  if (name.includes("Krag")) return ["Incendiary Ammo", "FMJ Ammo"];
   if (name.includes("Berthier")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Uppercut")) return ["Explosive Ammo", "Incendiary Ammo", "FMJ Ammo"];
   if (name.includes("Mako 1895")) return ["Explosive Ammo", "FMJ Ammo"];
-  if (name.includes("Romero")) return ["Slug Ammo", "Penny Shot", "Dragon Breath", "Starshell"];
-  if (name.includes("Rival")) return ["Slug Ammo", "Flechette Ammo", "Penny Shot", "Dragon Breath"];
-  if (name.includes("Specter")) return ["Slug Ammo", "Flechette Ammo", "Penny Shot", "Dragon Breath"];
-  if (name.includes("Terminus")) return ["Slug Ammo", "Flechette Ammo", "Penny Shot", "Dragon Breath"];
-  if (name.includes("Slate")) return ["Slug Ammo", "Penny Shot"];
-  if (name.includes("Auto-5") || name.includes("Auto-4")) return ["Slug Ammo", "Penny Shot", "Flechette"];
-  if (name.includes("Burgess")) return ["Slug Ammo", "Penny Shot", "Flechette", "Dragon Breath"];
-  if (name.includes("Homestead")) return ["Slug Ammo", "Penny Shot", "Dragon Breath", "Flechette"];
-  if (name.includes("Hand Crossbow")) return ["Poison Bolt", "Choke Bolt", "Dragon Bolt"];
-  if (name.includes("Crossbow")) return ["Shot Bolt", "Explosive Bolt", "Steel Bolt"];
-  if (name.includes("Bomb Lance") || name.includes("Bomb Launcher")) return ["Steel Ball", "Dragon Breath"];
+  if (name.includes("Rival")) return ["Slug", "Flechette Ammo", "Penny Shot"];
+  if (name.includes("Specter")) return ["Slug", "Flechette Ammo", "Penny Shot"];
+  if (name.includes("Terminus")) return ["Slug", "Flechette Ammo", "Penny Shot"];
+  if (name.includes("Slate")) return ["Slug", "Penny Shot"];
+  if (name.includes("Auto-5") || name.includes("Auto-4")) return ["Slug", "Penny Shot", "Flechette Ammo"];
+  if (name.includes("Burgess")) return ["Slug", "Penny Shot", "Flechette Ammo"];
+  if (name.includes("Homestead")) return ["Slug", "Penny Shot", "Dragon Breath"];
   if (name.includes("Dolch")) return ["Dumdum Ammo"];
   return [];
 }
@@ -253,11 +281,58 @@ function getCustomAmmoForWeapon(weapon) {
 function getAmmoDisplay(weapon) {
   if (!weapon) return { text: "STANDARD" };
   const customList = getCustomAmmoForWeapon(weapon);
-  if (customList.length > 0 && Math.random() < 0.5) {
-    const chosenCustom = getRandomItem(customList);
-    return { text: `${weapon.type ? weapon.type.toUpperCase() : "SPECIAL"} (${chosenCustom})` };
+  const typeText = weapon.type ? weapon.type.toUpperCase() : "SPECIAL";
+  const name = weapon.name || "";
+
+  if (customList.length === 0) {
+    return { text: typeText };
   }
-  return { text: weapon.type ? weapon.type.toUpperCase() : "STANDARD" };
+
+  // Unik hantering för LeMat & Haymaker (Primär ammo + Underpipad Shotgun)
+  if (name.includes("LeMat") || name.includes("Haymaker")) {
+    const primaryType = name.includes("LeMat Carbine") ? "COMPACT" : (name.includes("Haymaker") ? "MEDIUM" : "COMPACT");
+    const shotgunCustoms = ["Slug", "Penny Shot", "Flechette Ammo"];
+    const primaryCustoms = customList.filter(a => !shotgunCustoms.includes(a));
+
+    let pAmmoText = primaryType;
+    let sAmmoText = "SHOTGUN";
+
+    if (primaryCustoms.length > 0 && Math.random() < 0.5) {
+      pAmmoText += ` (${getRandomItem(primaryCustoms)})`;
+    }
+    const availableShotgunCustoms = customList.filter(a => shotgunCustoms.includes(a));
+    if (availableShotgunCustoms.length > 0 && Math.random() < 0.5) {
+      sAmmoText += ` (${getRandomItem(availableShotgunCustoms)})`;
+    }
+
+    return { text: `${pAmmoText} / ${sAmmoText}` };
+  }
+
+  // För övriga Single-Shot / Dual-Slot vapen (Romero, Sparks, Bow m.fl.)
+  if (isSingleShotWeapon(weapon) && Math.random() < 0.75) {
+    const rollType = Math.random();
+
+    if (customList.length >= 2 && rollType < 0.35) {
+      const first = getRandomItem(customList);
+      const remaining = customList.filter(a => a !== first);
+      const second = getRandomItem(remaining);
+      return { text: `${typeText} (${first} / ${second})` };
+    } else if (rollType < 0.65) {
+      const chosenCustom = getRandomItem(customList);
+      return { text: `${typeText} (Standard / ${chosenCustom})` };
+    } else {
+      const chosenCustom = getRandomItem(customList);
+      return { text: `${typeText} (${chosenCustom} / Standard)` };
+    }
+  }
+
+  // För övriga vanliga vapen (50% chans till special-ammo)
+  if (Math.random() < 0.5) {
+    const chosenCustom = getRandomItem(customList);
+    return { text: `${typeText} (${chosenCustom})` };
+  }
+
+  return { text: typeText };
 }
 
 // ==================== CORE LOGIC ====================
@@ -318,7 +393,7 @@ function rollWeapons() {
   let totalWeaponCost = 0;
   const availableWeapons = allowScarce ? weapons : weapons.filter(w => w.cost > 0);
 
-  // 1. Välj Primary (tillåt vapen upp till hela maxSlots)
+  // 1. Välj Primary
   const validPrimaries = availableWeapons.filter(w => w.slot <= maxSlots);
   let rawPrimary = getRandomItem(validPrimaries) || availableWeapons[0];
   let primary = { ...rawPrimary };
@@ -334,18 +409,16 @@ function rollWeapons() {
   const primaryAmmo = getAmmoDisplay(primary);
   totalWeaponCost += primaryCost;
 
-  // 2. Räkna ut kvarvarande slots för Secondary
+  // 2. Secondary
   let availableSlotsForSecondary = maxSlots - primary.slot;
   let secondary = null;
   let secondaryCost = 0;
   let secondaryAmmo = { text: "-" };
 
-  // Om det finns plats kvar (minst 1 slot), slumpa ett secondary!
   if (availableSlotsForSecondary >= 1) {
     let validSecondaries = availableWeapons.filter(w => w.slot <= availableSlotsForSecondary);
 
     if (validSecondaries.length > 0) {
-      // Prioritera vapen som nyttjar kvarvarande slots väl
       const maxPossibleSlot = Math.max(...validSecondaries.map(w => w.slot));
       const optimalSecondaries = validSecondaries.filter(w => w.slot === maxPossibleSlot);
 
@@ -392,7 +465,6 @@ function rollWeapons() {
     if (sAmmo) sAmmo.textContent = secondaryAmmo.text;
     if (sCost) sCost.textContent = formatPrice(secondaryCost);
   } else {
-    // Om inget får plats (t.ex. vid en 5-slot Nitro utan Quartermaster)
     if (sName) sName.textContent = "None";
     if (sSlot) sSlot.textContent = "0-SLOT";
     if (sAmmo) sAmmo.textContent = "-";
