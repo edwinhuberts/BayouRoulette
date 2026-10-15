@@ -318,7 +318,8 @@ function rollWeapons() {
   let totalWeaponCost = 0;
   const availableWeapons = allowScarce ? weapons : weapons.filter(w => w.cost > 0);
 
-  const validPrimaries = availableWeapons.filter(w => w.slot <= maxSlots - 1);
+  // 1. Välj Primary (tillåt vapen upp till hela maxSlots)
+  const validPrimaries = availableWeapons.filter(w => w.slot <= maxSlots);
   let rawPrimary = getRandomItem(validPrimaries) || availableWeapons[0];
   let primary = { ...rawPrimary };
 
@@ -333,24 +334,43 @@ function rollWeapons() {
   const primaryAmmo = getAmmoDisplay(primary);
   totalWeaponCost += primaryCost;
 
+  // 2. Räkna ut kvarvarande slots för Secondary
   let availableSlotsForSecondary = maxSlots - primary.slot;
-  let validSecondaries = availableWeapons.filter(w => w.slot <= availableSlotsForSecondary);
-  let rawSecondary = validSecondaries.length > 0 
-    ? getRandomItem(validSecondaries) 
-    : getRandomItem(availableWeapons.filter(w => w.slot === 1));
-  let secondary = { ...rawSecondary };
+  let secondary = null;
+  let secondaryCost = 0;
+  let secondaryAmmo = { text: "-" };
 
-  let isSecondaryPair = false;
-  if (canBeDualWielded(secondary) && availableSlotsForSecondary >= 2 && Math.random() < 0.3) {
-    secondary.name = `${secondary.name} (Pair)`;
-    secondary.slot = 2;
-    isSecondaryPair = true;
+  // Om det finns plats kvar (minst 1 slot), slumpa ett secondary!
+  if (availableSlotsForSecondary >= 1) {
+    let validSecondaries = availableWeapons.filter(w => w.slot <= availableSlotsForSecondary);
+
+    if (validSecondaries.length > 0) {
+      // Prioritera vapen som nyttjar kvarvarande slots väl
+      const maxPossibleSlot = Math.max(...validSecondaries.map(w => w.slot));
+      const optimalSecondaries = validSecondaries.filter(w => w.slot === maxPossibleSlot);
+
+      let rawSecondary;
+      if (optimalSecondaries.length > 0 && Math.random() < 0.7) {
+        rawSecondary = getRandomItem(optimalSecondaries);
+      } else {
+        rawSecondary = getRandomItem(validSecondaries);
+      }
+      secondary = { ...rawSecondary };
+
+      let isSecondaryPair = false;
+      if (canBeDualWielded(secondary) && availableSlotsForSecondary >= 2 && (secondary.slot === 1 || Math.random() < 0.4)) {
+        secondary.name = `${secondary.name} (Pair)`;
+        secondary.slot = 2;
+        isSecondaryPair = true;
+      }
+
+      secondaryCost = isSecondaryPair ? secondary.cost * 2 : secondary.cost;
+      secondaryAmmo = getAmmoDisplay(secondary);
+      totalWeaponCost += secondaryCost;
+    }
   }
 
-  let secondaryCost = isSecondaryPair ? secondary.cost * 2 : secondary.cost;
-  const secondaryAmmo = getAmmoDisplay(secondary);
-  totalWeaponCost += secondaryCost;
-
+  // Render Primary
   const pName = document.getElementById("primary-name");
   const pSlot = document.getElementById("primary-slot");
   const pAmmo = document.getElementById("primary-ammo");
@@ -360,18 +380,29 @@ function rollWeapons() {
   if (pAmmo) pAmmo.textContent = primaryAmmo.text;
   if (pCost) pCost.textContent = formatPrice(primaryCost);
 
+  // Render Secondary
   const sName = document.getElementById("secondary-name");
   const sSlot = document.getElementById("secondary-slot");
   const sAmmo = document.getElementById("secondary-ammo");
   const sCost = document.getElementById("secondary-cost");
-  if (sName) sName.textContent = secondary.name;
-  if (sSlot) sSlot.textContent = `${secondary.slot}-SLOT`;
-  if (sAmmo) sAmmo.textContent = secondaryAmmo.text;
-  if (sCost) sCost.textContent = formatPrice(secondaryCost);
 
+  if (secondary) {
+    if (sName) sName.textContent = secondary.name;
+    if (sSlot) sSlot.textContent = `${secondary.slot}-SLOT`;
+    if (sAmmo) sAmmo.textContent = secondaryAmmo.text;
+    if (sCost) sCost.textContent = formatPrice(secondaryCost);
+  } else {
+    // Om inget får plats (t.ex. vid en 5-slot Nitro utan Quartermaster)
+    if (sName) sName.textContent = "None";
+    if (sSlot) sSlot.textContent = "0-SLOT";
+    if (sAmmo) sAmmo.textContent = "-";
+    if (sCost) sCost.textContent = "$0";
+  }
+
+  const usedSlots = primary.slot + (secondary ? secondary.slot : 0);
   const slotCounter = document.getElementById("slot-counter");
   if (slotCounter) {
-    slotCounter.textContent = `${primary.slot + secondary.slot} / ${maxSlots}`;
+    slotCounter.textContent = `${usedSlots} / ${maxSlots}`;
   }
 
   return totalWeaponCost;
@@ -475,9 +506,19 @@ function rollAllAnimated() {
     const weaponsSection = document.getElementById("weapons-section");
     const equipmentSection = document.getElementById("equipment-section");
     const costDisplay = document.getElementById("cost-display");
-    if (weaponsSection) weaponsSection.classList.remove("hidden");
-    if (equipmentSection && !onlyWeapons) equipmentSection.classList.remove("hidden");
-    if (costDisplay) costDisplay.classList.remove("hidden");
+
+    if (weaponsSection) {
+      weaponsSection.classList.remove("hidden");
+      weaponsSection.classList.add("animate-fade-in");
+    }
+    if (equipmentSection && !onlyWeapons) {
+      equipmentSection.classList.remove("hidden");
+      equipmentSection.classList.add("animate-fade-in");
+    }
+    if (costDisplay) {
+      costDisplay.classList.remove("hidden");
+      costDisplay.classList.add("animate-fade-in");
+    }
   }
 
   const rollBtn = document.getElementById("roll-btn");
