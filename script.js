@@ -185,6 +185,7 @@ const CONSUMABLES = ["Weak Vitality Shot", "Vitality Shot", "Weak Stamina Shot",
 let allowScarce = true;
 let maxBudget = 2000;
 let quartermaster = false;
+let customAmmo = true; // Ny toggle för custom ammo
 let onlyWeapons = false;
 let isRolling = false;
 let hasRolledOnce = false;
@@ -205,7 +206,6 @@ function canBeDualWielded(weapon) {
   return !nonDualWieldable.includes(weapon.name);
 }
 
-// Identifierar alla vapen med dubbla/omkopplingsbara ammotyper
 function isSingleShotWeapon(weapon) {
   if (!weapon || !weapon.name) return false;
   const name = weapon.name;
@@ -279,11 +279,20 @@ function getCustomAmmoForWeapon(weapon) {
 }
 
 function getAmmoDisplay(weapon) {
-  if (!weapon) return { text: "STANDARD" };
-  const customList = getCustomAmmoForWeapon(weapon);
+  if (!weapon) return { text: "NORMAL" };
   const typeText = weapon.type ? weapon.type.toUpperCase() : "SPECIAL";
   const name = weapon.name || "";
 
+  // Om Custom Ammo är stängd av (OFF), visa endast standard-ammotypen
+  if (!customAmmo) {
+    if (name.includes("LeMat") || name.includes("Haymaker")) {
+      const primaryType = name.includes("LeMat Carbine") ? "COMPACT" : (name.includes("Haymaker") ? "MEDIUM" : "COMPACT");
+      return { text: `${primaryType} / SHOTGUN` };
+    }
+    return { text: typeText };
+  }
+
+  const customList = getCustomAmmoForWeapon(weapon);
   if (customList.length === 0) {
     return { text: typeText };
   }
@@ -319,10 +328,10 @@ function getAmmoDisplay(weapon) {
       return { text: `${typeText} (${first} / ${second})` };
     } else if (rollType < 0.65) {
       const chosenCustom = getRandomItem(customList);
-      return { text: `${typeText} (Standard / ${chosenCustom})` };
+      return { text: `${typeText} (Normal / ${chosenCustom})` };
     } else {
       const chosenCustom = getRandomItem(customList);
-      return { text: `${typeText} (${chosenCustom} / Standard)` };
+      return { text: `${typeText} (${chosenCustom} / Normal)` };
     }
   }
 
@@ -356,6 +365,18 @@ function toggleQuartermaster() {
     qmBtn.classList.toggle("bg-amber-500/20", quartermaster);
     qmBtn.classList.toggle("border-amber-500/60", quartermaster);
     qmBtn.classList.toggle("text-amber-400", quartermaster);
+  }
+  if (hasRolledOnce) rollAllAnimated();
+}
+
+function toggleCustomAmmo() {
+  customAmmo = !customAmmo;
+  const ammoBtn = document.getElementById("ammo-btn");
+  if (ammoBtn) {
+    ammoBtn.textContent = `Custom Ammo: ${customAmmo ? "ON" : "OFF"}`;
+    ammoBtn.classList.toggle("bg-amber-500/20", customAmmo);
+    ammoBtn.classList.toggle("border-amber-500/60", customAmmo);
+    ammoBtn.classList.toggle("text-amber-400", customAmmo);
   }
   if (hasRolledOnce) rollAllAnimated();
 }
@@ -622,13 +643,14 @@ function init() {
   const rollBtn = document.getElementById("roll-btn");
   const optionsToggleBtn = document.getElementById("options-toggle-btn");
   const qmBtn = document.getElementById("qm-btn");
+  const ammoBtn = document.getElementById("ammo-btn");
   const weaponsBtn = document.getElementById("weapons-btn");
   const scarceBtn = document.getElementById("scarce-btn");
   const yearElem = document.getElementById("year");
 
-  if (scarceBtn && allowScarce) {
-    scarceBtn.classList.add("bg-amber-500/20", "border-amber-500/60", "text-amber-400");
-  }
+  // Markera aktiva knappar med berstensgul glöd
+  if (scarceBtn && allowScarce) scarceBtn.classList.add("bg-amber-500/20", "border-amber-500/60", "text-amber-400");
+  if (ammoBtn && customAmmo) ammoBtn.classList.add("bg-amber-500/20", "border-amber-500/60", "text-amber-400");
 
   const budgetSlider = document.getElementById("budget-slider");
   const budgetValue = document.getElementById("budget-value");
@@ -643,6 +665,7 @@ function init() {
   if (rollBtn) rollBtn.addEventListener("click", rollAllAnimated);
   if (optionsToggleBtn) optionsToggleBtn.addEventListener("click", toggleOptionsPanel);
   if (qmBtn) qmBtn.addEventListener("click", toggleQuartermaster);
+  if (ammoBtn) ammoBtn.addEventListener("click", toggleCustomAmmo);
   if (weaponsBtn) weaponsBtn.addEventListener("click", toggleOnlyWeapons);
   if (scarceBtn) scarceBtn.addEventListener("click", toggleScarce);
   if (yearElem) yearElem.textContent = new Date().getFullYear();
