@@ -327,6 +327,18 @@ function getAmmoDisplay(weapon) {
 }
 
 // ==================== CORE LOGIC ====================
+function toggleOptionsPanel() {
+  const panel = document.getElementById("options-panel");
+  const btn = document.getElementById("options-toggle-btn");
+  if (panel) {
+    const isHidden = panel.classList.toggle("hidden");
+    if (btn) {
+      btn.classList.toggle("border-amber-500/60", !isHidden);
+      btn.classList.toggle("text-amber-400", !isHidden);
+    }
+  }
+}
+
 function toggleQuartermaster() {
   quartermaster = !quartermaster;
   const qmBtn = document.getElementById("qm-btn");
@@ -575,6 +587,7 @@ function rollAllAnimated() {
 // ==================== INIT ====================
 function init() {
   const rollBtn = document.getElementById("roll-btn");
+  const optionsToggleBtn = document.getElementById("options-toggle-btn");
   const qmBtn = document.getElementById("qm-btn");
   const weaponsBtn = document.getElementById("weapons-btn");
   const scarceBtn = document.getElementById("scarce-btn");
@@ -597,6 +610,7 @@ function init() {
   }
 
   if (rollBtn) rollBtn.addEventListener("click", rollAllAnimated);
+  if (optionsToggleBtn) optionsToggleBtn.addEventListener("click", toggleOptionsPanel);
   if (qmBtn) qmBtn.addEventListener("click", toggleQuartermaster);
   if (weaponsBtn) weaponsBtn.addEventListener("click", toggleOnlyWeapons);
   if (scarceBtn) scarceBtn.addEventListener("click", toggleScarce);
