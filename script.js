@@ -13,7 +13,7 @@ const weapons = [
   { name: "Crossbow", slot: 4, type: "special", cost: 50 },
   { name: "Crossbow Deadeye", slot: 4, type: "special", cost: 53 },
   { name: "Drilling", slot: 4, type: "medium", cost: 510 },
-  { name: "Homestead 78", slot: 4, type: "shotgun", cost: 0 }, // SCARCE
+  { name: "Homestead 78", slot: 4, type: "shotgun", cost: 0 },
   { name: "Infantry 73L", slot: 4, type: "compact", cost: 78 },
   { name: "Infantry 73L Bayonet", slot: 4, type: "compact", cost: 88 },
   { name: "Infantry 73L Sniper", slot: 4, type: "compact", cost: 90 },
@@ -60,7 +60,7 @@ const weapons = [
   { name: "Springfield 1866 Marksman", slot: 4, type: "medium", cost: 42 },
   { name: "Terminus", slot: 4, type: "shotgun", cost: 168 },
   { name: "Vetterli 71 Cyclone", slot: 4, type: "medium", cost: 280 },
-  { name: "Wildland", slot: 4, type: "compact", cost: 0 }, // SCARCE
+  { name: "Wildland", slot: 4, type: "compact", cost: 0 },
 
   // ==================== 3-SLOT WEAPONS ====================
   { name: "1865 Carbine", slot: 3, type: "medium", cost: 70 },
@@ -108,7 +108,7 @@ const weapons = [
   { name: "Dolch 96 Claw", slot: 2, type: "special", cost: 700 },
   { name: "Drilling Hatchet", slot: 2, type: "medium", cost: 340 },
   { name: "Drilling Shorty", slot: 2, type: "medium", cost: 330 },
-  { name: "Flame Rifle", slot: 2, type: "special", cost: 0 }, // SCARCE
+  { name: "Flame Rifle", slot: 2, type: "special", cost: 0 },
   { name: "Haymaker", slot: 2, type: "shotgun", cost: 279 },
   { name: "Katana", slot: 2, type: "special", cost: 115 },
   { name: "Mosin Obrez", slot: 2, type: "long", cost: 290 },
@@ -160,80 +160,26 @@ const weapons = [
   { name: "Sparks Pistol Silencer", slot: 1, type: "long", cost: 178 }
 ];
 
-// Pristabell för Tools och Consumables
 const GEAR_PRICES = {
-  // Tools
-  "Knife": 40,
-  "Heavy Knife": 20,
-  "Duster": 30,
-  "Knuckle Knife": 50,
-  "Throwing Knives": 40,
-  "Throwing Axes": 80,
-  "Throwing Spear": 145,
-  "First Aid Kit": 30,
-  "Flare Pistol": 36,
-  "Fusees": 10,
-  "Choke Bombs": 25,
-  "Spyglass": 8,
-  "Quad Derringer": 30,
-  "Pennyshot Derringer": 100,
-  "Alert Trip Mines": 30,
-  "Concertina Trip Mines": 90,
-  "Poison Trip Mines": 30,
-  "Decoys": 6,
-  "Blank Fire Decoys": 45,
-  "Decoy Fuses": 15,
-
-  // Consumables
-  "Weak Vitality Shot": 20,
-  "Vitality Shot": 85,
-  "Weak Stamina Shot": 60,
-  "Stamina Shot": 100,
-  "Weak Antidote Shot": 30,
-  "Antidote Shot": 55,
-  "Weak Regeneration Shot": 40,
-  "Regeneration Shot": 105,
-  "Dynamite Stick": 18,
-  "Waxed Dynamite Stick": 24,
-  "Dynamite Bundle": 75,
-  "Big Dynamite Bundle": 110,
-  "Frag Bomb": 103,
-  "Sticky Bomb": 64,
-  "Fire Bomb": 30,
-  "Liquid Fire Bomb": 35,
-  "Hellfire Bomb": 70,
-  "Poison Bomb": 25,
-  "Concertina Bomb": 48,
-  "Flash Bomb": 25,
-  "Ammo Box": 65,
-  "Tool Box": 25,
-  "Stalker Beetle": 45,
-  "Fire Beetle": 57,
-  "Choke Beetle": 22
+  "Knife": 40, "Heavy Knife": 20, "Duster": 30, "Knuckle Knife": 50,
+  "Throwing Knives": 40, "Throwing Axes": 80, "Throwing Spear": 145,
+  "First Aid Kit": 30, "Flare Pistol": 36, "Fusees": 10, "Choke Bombs": 25,
+  "Spyglass": 8, "Quad Derringer": 30, "Pennyshot Derringer": 100,
+  "Alert Trip Mines": 30, "Concertina Trip Mines": 90, "Poison Trip Mines": 30,
+  "Decoys": 6, "Blank Fire Decoys": 45, "Decoy Fuses": 15,
+  "Weak Vitality Shot": 20, "Vitality Shot": 85, "Weak Stamina Shot": 60,
+  "Stamina Shot": 100, "Weak Antidote Shot": 30, "Antidote Shot": 55,
+  "Weak Regeneration Shot": 40, "Regeneration Shot": 105, "Dynamite Stick": 18,
+  "Waxed Dynamite Stick": 24, "Dynamite Bundle": 75, "Big Dynamite Bundle": 110,
+  "Frag Bomb": 103, "Sticky Bomb": 64, "Fire Bomb": 30, "Liquid Fire Bomb": 35,
+  "Hellfire Bomb": 70, "Poison Bomb": 25, "Concertina Bomb": 48, "Flash Bomb": 25,
+  "Ammo Box": 65, "Tool Box": 25, "Stalker Beetle": 45, "Fire Beetle": 57, "Choke Beetle": 22
 };
 
-const MELEE_TOOLS = [
-  "Knife", "Heavy Knife", "Duster", "Knuckle Knife", "Throwing Knives", "Throwing Axes", "Throwing Spear"
-];
-
-const MEDICAL_TOOLS = [
-  "First Aid Kit"
-];
-
-const OTHER_TOOLS = [
-  "Flare Pistol", "Fusees", "Choke Bombs", "Spyglass", "Quad Derringer", 
-  "Pennyshot Derringer", "Alert Trip Mines", "Concertina Trip Mines", 
-  "Poison Trip Mines", "Decoys", "Blank Fire Decoys", "Decoy Fuses"
-];
-
-const CONSUMABLES = [
-  "Weak Vitality Shot", "Vitality Shot", "Weak Stamina Shot", "Stamina Shot", 
-  "Weak Antidote Shot", "Antidote Shot", "Weak Regeneration Shot", "Regeneration Shot", 
-  "Dynamite Stick", "Waxed Dynamite Stick", "Dynamite Bundle", "Big Dynamite Bundle", 
-  "Frag Bomb", "Sticky Bomb", "Fire Bomb", "Liquid Fire Bomb", "Hellfire Bomb", 
-  "Poison Bomb", "Concertina Bomb", "Flash Bomb", "Ammo Box", "Tool Box", 
-  "Stalker Beetle", "Fire Beetle", "Choke Beetle"
-];
+const MELEE_TOOLS = ["Knife", "Heavy Knife", "Duster", "Knuckle Knife", "Throwing Knives", "Throwing Axes", "Throwing Spear"];
+const MEDICAL_TOOLS = ["First Aid Kit"];
+const OTHER_TOOLS = ["Flare Pistol", "Fusees", "Choke Bombs", "Spyglass", "Quad Derringer", "Pennyshot Derringer", "Alert Trip Mines", "Concertina Trip Mines", "Poison Trip Mines", "Decoys", "Blank Fire Decoys", "Decoy Fuses"];
+const CONSUMABLES = ["Weak Vitality Shot", "Vitality Shot", "Weak Stamina Shot", "Stamina Shot", "Weak Antidote Shot", "Antidote Shot", "Weak Regeneration Shot", "Regeneration Shot", "Dynamite Stick", "Waxed Dynamite Stick", "Dynamite Bundle", "Big Dynamite Bundle", "Frag Bomb", "Sticky Bomb", "Fire Bomb", "Liquid Fire Bomb", "Hellfire Bomb", "Poison Bomb", "Concertina Bomb", "Flash Bomb", "Ammo Box", "Tool Box", "Stalker Beetle", "Fire Beetle", "Choke Beetle"];
 
 // ==================== STATE ====================
 let allowScarce = true;
@@ -262,7 +208,6 @@ function canBeDualWielded(weapon) {
 function getCustomAmmoForWeapon(weapon) {
   if (!weapon || !weapon.name) return [];
   const name = weapon.name;
-  
   if (name.includes("Conversion")) return ["FMJ Ammo", "Dumdum Ammo"];
   if (name.includes("Nagant M1895")) return ["Poison Ammo", "High Velocity Ammo"];
   if (name.includes("Officer")) return ["High Velocity Ammo", "Poison Ammo", "Subsonic Ammo"];
@@ -273,7 +218,6 @@ function getCustomAmmoForWeapon(weapon) {
     return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Poison Ammo", "Subsonic Ammo"];
   }
   if (name.includes("LeMat")) return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo"];
-
   if (name.includes("Centennial")) return ["FMJ Ammo", "Poison Ammo", "High Velocity Ammo", "Subsonic Ammo"];
   if (name.includes("Scottfield")) return ["FMJ Ammo", "Incendiary Ammo", "High Velocity Ammo", "Dumdum Ammo"];
   if (name.includes("Pax")) return ["FMJ Ammo", "Incendiary Ammo", "Dumdum Ammo", "Poison Ammo"];
@@ -283,7 +227,6 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("1865 Carbine")) return ["FMJ Ammo", "High Velocity Ammo", "Subsonic Ammo"];
   if (name.includes("Maynard")) return ["High Velocity Ammo", "Subsonic Ammo", "Dumdum Ammo"];
   if (name.includes("Flame Rifle")) return ["🔥!!FIRE!!🔥"];
-
   if (name.includes("Mosin-Nagant") || name.includes("Mosin Obrez")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Lebel")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Krag")) return ["Incendiary Ammo", "FMJ Ammo", "Subsonic Ammo"];
@@ -292,7 +235,6 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Berthier")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Uppercut")) return ["Explosive Ammo", "Incendiary Ammo", "FMJ Ammo"];
   if (name.includes("Mako 1895")) return ["Explosive Ammo", "FMJ Ammo"];
-
   if (name.includes("Romero")) return ["Slug Ammo", "Penny Shot", "Dragon Breath", "Starshell"];
   if (name.includes("Rival")) return ["Slug Ammo", "Flechette Ammo", "Penny Shot", "Dragon Breath"];
   if (name.includes("Specter")) return ["Slug Ammo", "Flechette Ammo", "Penny Shot", "Dragon Breath"];
@@ -301,29 +243,21 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Auto-5") || name.includes("Auto-4")) return ["Slug Ammo", "Penny Shot", "Flechette"];
   if (name.includes("Burgess")) return ["Slug Ammo", "Penny Shot", "Flechette", "Dragon Breath"];
   if (name.includes("Homestead")) return ["Slug Ammo", "Penny Shot", "Dragon Breath", "Flechette"];
-  
   if (name.includes("Hand Crossbow")) return ["Poison Bolt", "Choke Bolt", "Dragon Bolt"];
   if (name.includes("Crossbow")) return ["Shot Bolt", "Explosive Bolt", "Steel Bolt"];
   if (name.includes("Bomb Lance") || name.includes("Bomb Launcher")) return ["Steel Ball", "Dragon Breath"];
   if (name.includes("Dolch")) return ["Dumdum Ammo"];
-
   return [];
 }
 
 function getAmmoDisplay(weapon) {
   if (!weapon) return { text: "STANDARD" };
-  
   const customList = getCustomAmmoForWeapon(weapon);
   if (customList.length > 0 && Math.random() < 0.5) {
     const chosenCustom = getRandomItem(customList);
-    return {
-      text: `${weapon.type ? weapon.type.toUpperCase() : "SPECIAL"} (${chosenCustom})`
-    };
+    return { text: `${weapon.type ? weapon.type.toUpperCase() : "SPECIAL"} (${chosenCustom})` };
   }
-  
-  return {
-    text: weapon.type ? weapon.type.toUpperCase() : "STANDARD"
-  };
+  return { text: weapon.type ? weapon.type.toUpperCase() : "STANDARD" };
 }
 
 // ==================== CORE LOGIC ====================
@@ -382,8 +316,6 @@ function toggleOnlyWeapons() {
 function rollWeapons() {
   const maxSlots = quartermaster ? 6 : 5;
   let totalWeaponCost = 0;
-  
-  // Filtrera bort Scarce-vapen ($0) om allowScarce är false
   const availableWeapons = allowScarce ? weapons : weapons.filter(w => w.cost > 0);
 
   const validPrimaries = availableWeapons.filter(w => w.slot <= maxSlots - 1);
@@ -419,7 +351,6 @@ function rollWeapons() {
   const secondaryAmmo = getAmmoDisplay(secondary);
   totalWeaponCost += secondaryCost;
 
-  // Render Primary
   const pName = document.getElementById("primary-name");
   const pSlot = document.getElementById("primary-slot");
   const pAmmo = document.getElementById("primary-ammo");
@@ -429,7 +360,6 @@ function rollWeapons() {
   if (pAmmo) pAmmo.textContent = primaryAmmo.text;
   if (pCost) pCost.textContent = formatPrice(primaryCost);
 
-  // Render Secondary
   const sName = document.getElementById("secondary-name");
   const sSlot = document.getElementById("secondary-slot");
   const sAmmo = document.getElementById("secondary-ammo");
@@ -449,10 +379,8 @@ function rollWeapons() {
 
 function rollGear(remainingBudget) {
   if (onlyWeapons) return 0;
-
   let totalGearCost = 0;
 
-  // Lista över alla 8 gear-slots med sina fasta index i UI
   const gearSlots = [
     { index: 0, type: "Melee Tool", pool: MELEE_TOOLS },
     { index: 1, type: "Medical Tool", pool: MEDICAL_TOOLS },
@@ -464,20 +392,17 @@ function rollGear(remainingBudget) {
     { index: 7, type: "Consumable", pool: CONSUMABLES }
   ];
 
-  // Om budgeten är under $200 prioriterar vi att behandla slot 1 (Medical) först av alla!
   let processOrder = [0, 1, 2, 3, 4, 5, 6, 7];
   if (maxBudget < 200) {
-    processOrder = [1, 0, 2, 3, 4, 5, 6, 7]; // Kör Medical (index 1) först!
+    processOrder = [1, 0, 2, 3, 4, 5, 6, 7];
   }
 
-  // Kör igenom i prioritetsordning
   processOrder.forEach(slotIndex => {
     const slot = gearSlots[slotIndex];
     const gearElem = document.getElementById(`gear-${slot.index}`);
     const typeElem = document.getElementById(`gear-${slot.index}-type`);
     const priceElem = document.getElementById(`gear-${slot.index}-price`);
 
-    // Filtrera fram prylar i poolen som faktiskt ryms i kvarvarande budget
     const affordableItems = slot.pool.filter(item => (GEAR_PRICES[item] || 0) <= (remainingBudget - totalGearCost));
 
     if (affordableItems.length > 0) {
@@ -489,7 +414,6 @@ function rollGear(remainingBudget) {
       if (typeElem) typeElem.textContent = slot.type;
       if (priceElem) priceElem.textContent = formatPrice(itemPrice);
     } else {
-      // Om pengarna inte räckte till denna ruta
       if (gearElem) gearElem.textContent = "Empty";
       if (typeElem) typeElem.textContent = slot.type;
       if (priceElem) priceElem.textContent = "$0";
@@ -503,13 +427,11 @@ function rollAll() {
   let weaponCost = 0;
   let attempts = 0;
 
-  // 1. Slumpa vapen som ryms inom maxBudget (testa max 100 ggr)
   do {
     weaponCost = rollWeapons();
     attempts++;
   } while (weaponCost > maxBudget && attempts < 100);
 
-  // Om inget vapen ryms (t.ex. vid extremt låg budget), tvinga fram det billigaste ($24 Nagant)
   if (weaponCost > maxBudget) {
     const cheapWeapon = weapons.find(w => w.name === "Nagant M1895") || weapons[0];
     weaponCost = cheapWeapon.cost;
@@ -523,7 +445,6 @@ function rollAll() {
     if (pAmmo) pAmmo.textContent = "COMPACT";
     if (pCost) pCost.textContent = formatPrice(cheapWeapon.cost);
 
-    // Töm secondary
     const sName = document.getElementById("secondary-name");
     const sSlot = document.getElementById("secondary-slot");
     const sAmmo = document.getElementById("secondary-ammo");
@@ -534,7 +455,6 @@ function rollAll() {
     if (sCost) sCost.textContent = "$0";
   }
 
-  // 2. Fyll på med gear för pengarna som finns kvar (börjar med First Aid Kit!)
   const remainingBudget = maxBudget - weaponCost;
   const gearCost = rollGear(remainingBudget);
 
@@ -593,12 +513,10 @@ function init() {
   const scarceBtn = document.getElementById("scarce-btn");
   const yearElem = document.getElementById("year");
 
-  // Markera scarce-knappen aktiv från start om allowScarce är true
   if (scarceBtn && allowScarce) {
     scarceBtn.classList.add("bg-amber-500/20", "border-amber-500/60", "text-amber-400");
   }
 
-  // Budget Slider
   const budgetSlider = document.getElementById("budget-slider");
   const budgetValue = document.getElementById("budget-value");
 
