@@ -41,42 +41,54 @@
       <!-- Weapons Section -->
       <div id="weapons-section" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Primary Weapon Card -->
-        <div id="primary-card" class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between min-h-[120px]">
+        <div id="primary-card" class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between min-h-[220px]">
           <div>
             <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500">
               <span>Primary Weapon</span>
               <span id="primary-cost" class="text-amber-400 font-bold text-xs bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">$0</span>
             </div>
-            <div id="primary-name" class="mt-2 text-xl font-bold text-zinc-100">
+            
+            <!-- Vapenbild Container -->
+            <div class="my-3 flex items-center justify-center h-28 w-full overflow-hidden">
+              <img id="primary-img" src="" alt="Primary Weapon" class="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)]" onerror="this.style.display='none'" />
+            </div>
+
+            <div id="primary-name" class="mt-1 text-xl font-bold text-zinc-100 text-center">
               -
             </div>
           </div>
-          <div class="mt-4 flex items-center justify-between">
+          <div class="mt-4 flex items-center justify-between border-t border-zinc-800/60 pt-3">
             <span id="primary-slot" class="rounded border border-zinc-700/60 bg-zinc-800/80 px-2 py-0.5 text-[10px] font-medium text-zinc-300">
               -
             </span>
-            <span id="primary-ammo" class="text-xs text-zinc-400 font-mono">
+            <span id="primary-ammo" class="text-xs text-amber-400/90 font-mono">
               -
             </span>
           </div>
         </div>
 
         <!-- Secondary Weapon Card -->
-        <div id="secondary-card" class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between min-h-[120px]">
+        <div id="secondary-card" class="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 shadow-inner transition-all flex flex-col justify-between min-h-[220px]">
           <div>
             <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500">
               <span>Secondary Weapon</span>
               <span id="secondary-cost" class="text-amber-400 font-bold text-xs bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">$0</span>
             </div>
-            <div id="secondary-name" class="mt-2 text-xl font-bold text-zinc-100">
+            
+            <!-- Vapenbild Container -->
+            <div class="my-3 flex items-center justify-center h-28 w-full overflow-hidden">
+              <img id="secondary-img" src="" alt="Secondary Weapon" class="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)]" onerror="this.style.display='none'" />
+            </div>
+
+            <div id="secondary-name" class="mt-1 text-xl font-bold text-zinc-100 text-center">
               -
             </div>
           </div>
-          <div class="mt-4 flex items-center justify-between">
+          <div class="mt-4 flex items-center justify-between border-t border-zinc-800/60 pt-3">
             <span id="secondary-slot" class="rounded border border-zinc-700/60 bg-zinc-800/80 px-2 py-0.5 text-[10px] font-medium text-zinc-300">
               -
             </span>
-            <span id="secondary-ammo" class="text-xs text-zinc-400 font-mono">
+            <span id="secondary-ammo" class="text-xs text-amber-400/90 font-mono">
               -
             </span>
           </div>
