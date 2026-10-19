@@ -204,9 +204,9 @@ function formatPrice(cost) {
 // Genererar den exakta bildsökvägen för vapnet
 function getWeaponImagePath(weaponName) {
   if (!weaponName) return "";
-  // Tar bort " (Pair)" om vapnet dual-wieldas för att matcha bildnamnet
   const cleanName = weaponName.replace(" (Pair)", "");
-  const formattedName = cleanName.replace(/ /g, "_");
+  // Ersätter både mellanslag och bindestreck med understreck
+  const formattedName = cleanName.replace(/[ -]/g, "_");
   return `images/weapons/Weapon_${formattedName}.png`;
 }
 
@@ -480,8 +480,9 @@ function rollWeapons() {
   if (pAmmo) pAmmo.textContent = primaryAmmo.text;
   if (pCost) pCost.textContent = formatPrice(primaryCost);
   if (pImg) {
-    pImg.src = getWeaponImagePath(primary.name);
-    pImg.alt = primary.name;
+  pImg.style.display = "block"; // Se till att bilden visas igen
+  pImg.src = getWeaponImagePath(primary.name);
+  pImg.alt = primary.name;
   }
 
   // Render Secondary
