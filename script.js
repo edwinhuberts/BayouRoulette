@@ -186,7 +186,7 @@ const CONSUMABLES = ["Weak Vitality Shot", "Vitality Shot", "Weak Stamina Shot",
 let allowScarce = true;
 let maxBudget = 2000;
 let quartermaster = false;
-let customAmmo = true; // Ny toggle för custom ammo
+let customAmmo = true; 
 let onlyWeapons = false;
 let isRolling = false;
 let hasRolledOnce = false;
@@ -199,6 +199,15 @@ function getRandomItem(arr) {
 
 function formatPrice(cost) {
   return cost === 0 ? "SCARCE" : `$${cost}`;
+}
+
+// Genererar den exakta bildsökvägen för vapnet
+function getWeaponImagePath(weaponName) {
+  if (!weaponName) return "";
+  // Tar bort " (Pair)" om vapnet dual-wieldas för att matcha bildnamnet
+  const cleanName = weaponName.replace(" (Pair)", "");
+  const formattedName = cleanName.replace(/ /g, "_");
+  return `images/weapons/Weapon_${formattedName}.png`;
 }
 
 function canBeDualWielded(weapon) {
@@ -231,7 +240,6 @@ function getCustomAmmoForWeapon(weapon) {
   if (!weapon || !weapon.name) return [];
   const name = weapon.name;
 
-  // Single-Shot & Dual-Slot Weapons
   if (name.includes("1890 Cavalry")) return ["FMJ Ammo", "High Velocity Ammo"];
   if (name.includes("Martini-Henry")) return ["Explosive Ammo", "FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo"];
   if (name.includes("Maynard")) return ["Dumdum Ammo", "High Velocity Ammo", "Subsonic Ammo"];
@@ -245,7 +253,6 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("LeMat")) return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Slug", "Penny Shot"];
   if (name.includes("Haymaker")) return ["Slug", "Penny Shot", "Flechette Ammo"];
 
-  // Övriga vanliga vapen
   if (name.includes("Conversion")) return ["FMJ Ammo", "Dumdum Ammo"];
   if (name.includes("Nagant M1895")) return ["Poison Ammo", "High Velocity Ammo"];
   if (name.includes("Officer")) return ["High Velocity Ammo", "Poison Ammo", "Subsonic Ammo"];
@@ -284,7 +291,6 @@ function getAmmoDisplay(weapon) {
   const typeText = weapon.type ? weapon.type.toUpperCase() : "SPECIAL";
   const name = weapon.name || "";
 
-  // Om Custom Ammo är stängd av (OFF), visa endast standard-ammotypen
   if (!customAmmo) {
     if (name.includes("LeMat") || name.includes("Haymaker")) {
       const primaryType = name.includes("LeMat Carbine") ? "COMPACT" : (name.includes("Haymaker") ? "MEDIUM" : "COMPACT");
@@ -298,7 +304,6 @@ function getAmmoDisplay(weapon) {
     return { text: typeText };
   }
 
-  // Unik hantering för LeMat & Haymaker (Primär ammo + Underpipad Shotgun)
   if (name.includes("LeMat") || name.includes("Haymaker")) {
     const primaryType = name.includes("LeMat Carbine") ? "COMPACT" : (name.includes("Haymaker") ? "MEDIUM" : "COMPACT");
     const shotgunCustoms = ["Slug", "Penny Shot", "Flechette Ammo"];
@@ -318,7 +323,6 @@ function getAmmoDisplay(weapon) {
     return { text: `${pAmmoText} / ${sAmmoText}` };
   }
 
-  // För övriga Single-Shot / Dual-Slot vapen (Romero, Sparks, Bow m.fl.)
   if (isSingleShotWeapon(weapon) && Math.random() < 0.75) {
     const rollType = Math.random();
 
@@ -336,7 +340,6 @@ function getAmmoDisplay(weapon) {
     }
   }
 
-  // För övriga vanliga vapen (50% chans till special-ammo)
   if (Math.random() < 0.5) {
     const chosenCustom = getRandomItem(customList);
     return { text: `${typeText} (${chosenCustom})` };
@@ -415,7 +418,7 @@ function rollWeapons() {
   let totalWeaponCost = 0;
   const availableWeapons = allowScarce ? weapons : weapons.filter(w => w.cost > 0);
 
-  // 1. Välj Primary
+  // 1. Primary
   const validPrimaries = availableWeapons.filter(w => w.slot <= maxSlots);
   let rawPrimary = getRandomItem(validPrimaries) || availableWeapons[0];
   let primary = { ...rawPrimary };
@@ -470,27 +473,43 @@ function rollWeapons() {
   const pSlot = document.getElementById("primary-slot");
   const pAmmo = document.getElementById("primary-ammo");
   const pCost = document.getElementById("primary-cost");
+  const pImg = document.getElementById("primary-img");
+
   if (pName) pName.textContent = primary.name;
   if (pSlot) pSlot.textContent = `${primary.slot}-SLOT`;
   if (pAmmo) pAmmo.textContent = primaryAmmo.text;
   if (pCost) pCost.textContent = formatPrice(primaryCost);
+  if (pImg) {
+    pImg.src = getWeaponImagePath(primary.name);
+    pImg.alt = primary.name;
+  }
 
   // Render Secondary
   const sName = document.getElementById("secondary-name");
   const sSlot = document.getElementById("secondary-slot");
   const sAmmo = document.getElementById("secondary-ammo");
   const sCost = document.getElementById("secondary-cost");
+  const sImg = document.getElementById("secondary-img");
 
   if (secondary) {
     if (sName) sName.textContent = secondary.name;
     if (sSlot) sSlot.textContent = `${secondary.slot}-SLOT`;
     if (sAmmo) sAmmo.textContent = secondaryAmmo.text;
     if (sCost) sCost.textContent = formatPrice(secondaryCost);
+    if (sImg) {
+      sImg.src = getWeaponImagePath(secondary.name);
+      sImg.alt = secondary.name;
+      sImg.style.display = "block";
+    }
   } else {
     if (sName) sName.textContent = "None";
     if (sSlot) sSlot.textContent = "0-SLOT";
     if (sAmmo) sAmmo.textContent = "-";
     if (sCost) sCost.textContent = "$0";
+    if (sImg) {
+      sImg.src = "";
+      sImg.style.display = "none";
+    }
   }
 
   const usedSlots = primary.slot + (secondary ? secondary.slot : 0);
@@ -565,19 +584,31 @@ function rollAll() {
     const pSlot = document.getElementById("primary-slot");
     const pAmmo = document.getElementById("primary-ammo");
     const pCost = document.getElementById("primary-cost");
+    const pImg = document.getElementById("primary-img");
+
     if (pName) pName.textContent = cheapWeapon.name;
     if (pSlot) pSlot.textContent = `${cheapWeapon.slot}-SLOT`;
     if (pAmmo) pAmmo.textContent = "COMPACT";
     if (pCost) pCost.textContent = formatPrice(cheapWeapon.cost);
+    if (pImg) {
+      pImg.src = getWeaponImagePath(cheapWeapon.name);
+      pImg.alt = cheapWeapon.name;
+    }
 
     const sName = document.getElementById("secondary-name");
     const sSlot = document.getElementById("secondary-slot");
     const sAmmo = document.getElementById("secondary-ammo");
     const sCost = document.getElementById("secondary-cost");
+    const sImg = document.getElementById("secondary-img");
+
     if (sName) sName.textContent = "None";
     if (sSlot) sSlot.textContent = "0-SLOT";
     if (sAmmo) sAmmo.textContent = "-";
     if (sCost) sCost.textContent = "$0";
+    if (sImg) {
+      sImg.src = "";
+      sImg.style.display = "none";
+    }
   }
 
   const remainingBudget = maxBudget - weaponCost;
@@ -649,7 +680,6 @@ function init() {
   const scarceBtn = document.getElementById("scarce-btn");
   const yearElem = document.getElementById("year");
 
-  // Markera aktiva knappar med berstensgul glöd
   if (scarceBtn && allowScarce) scarceBtn.classList.add("bg-amber-500/20", "border-amber-500/60", "text-amber-400");
   if (ammoBtn && customAmmo) ammoBtn.classList.add("bg-amber-500/20", "border-amber-500/60", "text-amber-400");
 
