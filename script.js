@@ -48,6 +48,7 @@ const weapons = [
   { name: "Romero 77", slot: 4, type: "shotgun", cost: 66 },
   { name: "Romero 77 Alamo", slot: 4, type: "shotgun", cost: 98 },
   { name: "Romero 77 Talon", slot: 4, type: "shotgun", cost: 76 },
+  { name: "Shredder", slot: 4, type: "special", cost: 0 },
   { name: "Slate", slot: 4, type: "shotgun", cost: 313 },
   { name: "Slate Riposte", slot: 4, type: "shotgun", cost: 323 },
   { name: "Sparks", slot: 4, type: "long", cost: 130 },
