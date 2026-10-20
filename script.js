@@ -268,7 +268,8 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Vetterli")) return ["FMJ Ammo", "Incendiary Ammo", "High Velocity Ammo"];
   if (name.includes("Drilling")) return ["Dumdum Ammo", "FMJ Ammo", "Slug"];
   if (name.includes("1865 Carbine")) return ["FMJ Ammo", "High Velocity Ammo"];
-  if (name.includes("Flame Rifle")) return ["🔥!!FIRE!!🔥"];
+  if (name.includes("Flame Rifle")) return ["🔥FIRE🔥"];
+  if (name.includes("Nitro")) return ["Shredder Ammo", "Explosive Ammo"];
   if (name.includes("Mosin-Nagant") || name.includes("Mosin Obrez")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Lebel")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Krag")) return ["Incendiary Ammo", "FMJ Ammo"];
