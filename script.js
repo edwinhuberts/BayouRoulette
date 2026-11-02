@@ -174,12 +174,13 @@ const GEAR_PRICES = {
   "Waxed Dynamite Stick": 24, "Dynamite Bundle": 75, "Big Dynamite Bundle": 110,
   "Frag Bomb": 103, "Sticky Bomb": 64, "Fire Bomb": 30, "Liquid Fire Bomb": 35,
   "Hellfire Bomb": 70, "Poison Bomb": 25, "Concertina Bomb": 48, "Flash Bomb": 25,
-  "Ammo Box": 65, "Tool Box": 25, "Stalker Beetle": 45, "Fire Beetle": 57, "Choke Beetle": 22
+  "Ammo Box": 65, "Tool Box": 25, "Stalker Beetle": 45, "Fire Beetle": 57, "Choke Beetle": 22,
+  "Long Derringer": 100
 };
 
 const MELEE_TOOLS = ["Knife", "Heavy Knife", "Duster", "Knuckle Knife", "Throwing Knives", "Throwing Axes", "Throwing Spear"];
 const MEDICAL_TOOLS = ["First Aid Kit"];
-const OTHER_TOOLS = ["Flare Pistol", "Fusees", "Choke Bombs", "Spyglass", "Quad Derringer", "Pennyshot Derringer", "Alert Trip Mines", "Concertina Trip Mines", "Poison Trip Mines", "Decoys", "Blank Fire Decoys", "Decoy Fuses"];
+const OTHER_TOOLS = ["Long Derringer", "Flare Pistol", "Fusees", "Choke Bombs", "Spyglass", "Quad Derringer", "Pennyshot Derringer", "Alert Trip Mines", "Concertina Trip Mines", "Poison Trip Mines", "Decoys", "Blank Fire Decoys", "Decoy Fuses"];
 const CONSUMABLES = ["Weak Vitality Shot", "Vitality Shot", "Weak Stamina Shot", "Stamina Shot", "Weak Antidote Shot", "Antidote Shot", "Weak Regeneration Shot", "Regeneration Shot", "Dynamite Stick", "Waxed Dynamite Stick", "Dynamite Bundle", "Big Dynamite Bundle", "Frag Bomb", "Sticky Bomb", "Fire Bomb", "Liquid Fire Bomb", "Hellfire Bomb", "Poison Bomb", "Concertina Bomb", "Flash Bomb", "Ammo Box", "Tool Box", "Stalker Beetle", "Fire Beetle", "Choke Beetle"];
 
 // ==================== STATE ====================
@@ -250,15 +251,15 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Romero")) return ["Dragon Breath", "Penny Shot", "Slug", "Starshell"];
   if (name.includes("Sparks")) return ["FMJ Ammo", "Incendiary Ammo", "Poison Ammo", "Subsonic Ammo"];
   if (name.includes("Springfield")) return ["Dumdum Ammo", "High Velocity Ammo", "Poison Ammo"];
-  if (name.includes("LeMat")) return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Slug", "Penny Shot"];
-  if (name.includes("Haymaker")) return ["Slug", "Penny Shot", "Flechette Ammo"];
+  if (name.includes("LeMat")) return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Slug", "Dragon Breath", "Starshell"];
+  if (name.includes("Haymaker")) return ["FMJ Ammo", "Poison Ammo", "Slug", "Dragon Breath", "Starshell"];
 
   if (name.includes("Conversion")) return ["FMJ Ammo", "Dumdum Ammo"];
-  if (name.includes("Nagant M1895")) return ["Poison Ammo", "High Velocity Ammo"];
+  if (name.includes("Nagant M1895")) return ["Poison Ammo", "High Velocity Ammo", "Dumdum Ammo", "Subsonic Ammo"];
   if (name.includes("Officer")) return ["High Velocity Ammo", "Poison Ammo", "Subsonic Ammo"];
   if (name.includes("New Army")) return ["FMJ Ammo", "Dumdum Ammo"];
   if (name.includes("Bornheim")) return ["High Velocity Ammo", "Incendiary Ammo", "Subsonic Ammo"];
-  if (name.includes("Marathon")) return ["FMJ Ammo", "Poison Ammo"];
+  if (name.includes("Marathon")) return ["FMJ Ammo", "Poison Ammo", "High Velocity Ammo", "Incendiary Ammo"];
   if (name.includes("Infantry 73L") || name.includes("Frontier 73C") || name.includes("Ranger 73") || name.includes("Vandal 73C")) {
     return ["FMJ Ammo", "High Velocity Ammo", "Incendiary Ammo", "Poison Ammo"];
   }
@@ -268,7 +269,7 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Vetterli")) return ["FMJ Ammo", "Incendiary Ammo", "High Velocity Ammo"];
   if (name.includes("Drilling")) return ["Dumdum Ammo", "FMJ Ammo", "Slug"];
   if (name.includes("1865 Carbine")) return ["FMJ Ammo", "High Velocity Ammo"];
-  if (name.includes("Flame Rifle")) return ["🔥FIRE🔥"];
+  if (name.includes("Flame Rifle")) return ["FIRE"];
   if (name.includes("Nitro")) return ["Shredder Ammo", "Explosive Ammo"];
   if (name.includes("Mosin-Nagant") || name.includes("Mosin Obrez")) return ["Spitzer Ammo", "Incendiary Ammo"];
   if (name.includes("Lebel")) return ["Spitzer Ammo", "Incendiary Ammo"];
@@ -307,7 +308,7 @@ function getAmmoDisplay(weapon) {
 
   if (name.includes("LeMat") || name.includes("Haymaker")) {
     const primaryType = name.includes("LeMat Carbine") ? "COMPACT" : (name.includes("Haymaker") ? "MEDIUM" : "COMPACT");
-    const shotgunCustoms = ["Slug", "Penny Shot", "Flechette Ammo"];
+    const shotgunCustoms = ["Slug", "Starshell", "Dragon Breath"];
     const primaryCustoms = customList.filter(a => !shotgunCustoms.includes(a));
 
     let pAmmoText = primaryType;
