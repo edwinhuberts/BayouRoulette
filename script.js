@@ -158,7 +158,8 @@ const weapons = [
   { name: "Scottfield Spitfire", slot: 1, type: "medium", cost: 108 },
   { name: "Scottfield Swift", slot: 1, type: "medium", cost: 95 },
   { name: "Sparks Pistol", slot: 1, type: "long", cost: 155 },
-  { name: "Sparks Pistol Silencer", slot: 1, type: "long", cost: 178 }
+  { name: "Sparks Pistol Silencer", slot: 1, type: "long", cost: 178 },
+  { name: "Lancaster", slot: 1, type: "medium", cost: 100 }
 ];
 
 const GEAR_PRICES = {
