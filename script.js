@@ -279,6 +279,7 @@ function getCustomAmmoForWeapon(weapon) {
   if (name.includes("Uppercut")) return ["Explosive Ammo", "Incendiary Ammo", "FMJ Ammo"];
   if (name.includes("Mako 1895")) return ["Explosive Ammo", "FMJ Ammo"];
   if (name.includes("Rival")) return ["Slug", "Flechette Ammo", "Penny Shot"];
+  if(name.includes("Lancaster")) return ["High Velocity Ammo", "Poison Ammo"];
   if (name.includes("Specter")) return ["Slug", "Flechette Ammo", "Penny Shot"];
   if (name.includes("Terminus")) return ["Slug", "Flechette Ammo", "Penny Shot"];
   if (name.includes("Slate")) return ["Slug", "Penny Shot"];
